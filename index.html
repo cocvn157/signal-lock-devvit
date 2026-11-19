@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signal Lock — Daily 5×5 Laser Mirror Puzzle</title>
+  <link rel="stylesheet" href="./src/client/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">⚡</span>
+        <div>
+          <h1>SIGNAL LOCK</h1>
+          <div id="puzzle-meta" class="meta">Loading daily grid...</div>
+        </div>
+      </div>
+      <div class="stats-pill-group">
+        <div class="stat-pill"><span class="lbl">MOVES</span><strong id="stat-moves">0</strong></div>
+        <div class="stat-pill"><span class="lbl">PAR</span><strong id="stat-par">-</strong></div>
+        <div class="stat-pill"><span class="lbl">TIME</span><strong id="stat-time">0s</strong></div>
+        <div class="stat-pill streak"><span class="lbl">STREAK</span><strong id="stat-streak">0🔥</strong></div>
+      </div>
+    </header>
+
+    <div class="mode-bar">
+      <div class="mode-tabs">
+        <button id="btn-mode-daily" class="mode-btn active">📅 Daily Puzzle</button>
+        <button id="btn-mode-practice" class="mode-btn">🎲 Endless Practice</button>
+      </div>
+      <div class="tools">
+        <button id="btn-reset" class="tool-btn" title="Reset grid">↺ Reset</button>
+        <button id="btn-sound" class="tool-btn" title="Toggle synth audio">🔊 SFX On</button>
+      </div>
+    </div>
+
+    <main class="stage">
+      <div class="board-wrap">
+        <div id="grid" class="grid" aria-label="5 by 5 laser puzzle grid"></div>
+        <svg id="beam-svg" class="beam-svg" viewBox="0 0 500 500" preserveAspectRatio="none"></svg>
+      </div>
+
+      <aside class="side-panel">
+        <div class="status-card" id="status-card">
+          <div class="status-title" id="status-title">Route the Beam to 🎯</div>
+          <p class="status-desc" id="status-desc">
+            Tap any mirror (<kbd>/</kbd> or <kbd>\</kbd>) to flip it. Hit every <strong>💎 Checkpoint</strong> before reaching the target core.
+          </p>
+          <div class="cp-bar">
+            <span>Checkpoints Lit:</span>
+            <strong id="cp-progress">0 / 0</strong>
+          </div>
+        </div>
+
+        <div id="victory-box" class="victory-box hidden">
+          <div class="victory-head" id="victory-stars">⭐⭐⭐ SIGNAL LOCKED!</div>
+          <pre id="share-preview" class="share-pre"></pre>
+          <div class="victory-actions">
+            <button id="btn-copy-share" class="btn primary">📋 Copy Result Card</button>
+            <button id="btn-reddit-comment" class="btn reddit hidden">💬 Post to Comments</button>
+            <button id="btn-next-practice" class="btn secondary hidden">🎲 Next Practice Grid</button>
+          </div>
+        </div>
+
+        <div class="lb-card">
+          <h3>🏆 Today's Subreddit Leaderboard</h3>
+          <ol id="leaderboard-list" class="lb-list">
+            <li class="muted">Solve today's puzzle to claim #1!</li>
+          </ol>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module" src="./src/client/main.ts"></script>
+</body>
+</html>

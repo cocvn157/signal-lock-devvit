@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "signal-lock-daily",
+  "post": {
+    "client": {
+      "dir": "dist/client",
+      "entry": "dist/client/index.html"
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "permissions": {
+    "redis": true,
+    "reddit": true
+  }
+}
