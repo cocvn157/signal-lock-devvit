@@ -211,8 +211,9 @@ app.post('/internal/on-app-install', async (_req, res) => {
 app.post('/internal/menu/post-create', async (_req, res) => {
   try {
     const post = await createSignalLockPost();
+    const shortId = post.id.replace(/^t3_/, '');
     res.json({
-      navigateTo: `https://reddit.com/r/${context.subredditName}/comments/${post.id}`,
+      navigateTo: post.url || `https://reddit.com/r/${context.subredditName}/comments/${shortId}`,
     });
   } catch (err) {
     console.error('POST /internal/menu/post-create error:', err);
