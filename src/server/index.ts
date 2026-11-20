@@ -189,6 +189,37 @@ app.post('/api/share-comment', async (req, res) => {
   }
 });
 
+async function createSignalLockPost() {
+  const dateKey = getUtcDateKey();
+  return reddit.submitCustomPost({
+    subredditName: context.subredditName,
+    title: `Signal Lock — Daily Laser Puzzle (${dateKey})`,
+    entry: 'default',
+  });
+}
+
+app.post('/internal/on-app-install', async (_req, res) => {
+  try {
+    const post = await createSignalLockPost();
+    res.json({ status: 'ok', postId: post.id, url: post.url });
+  } catch (err) {
+    console.error('POST /internal/on-app-install error:', err);
+    res.status(500).json({ error: 'Failed to create Signal Lock post on install' });
+  }
+});
+
+app.post('/internal/menu/post-create', async (_req, res) => {
+  try {
+    const post = await createSignalLockPost();
+    res.json({
+      navigateTo: `https://reddit.com/r/${context.subredditName}/comments/${post.id}`,
+    });
+  } catch (err) {
+    console.error('POST /internal/menu/post-create error:', err);
+    res.status(400).json({ status: 'error', message: 'Failed to create post' });
+  }
+});
+
 const server = createServer(app);
 server.on('error', (err) => console.error(`Server error: ${err.stack}`));
 server.listen(getServerPort());

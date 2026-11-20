@@ -2,9 +2,12 @@
   "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
   "name": "signal-lock-daily",
   "post": {
-    "client": {
-      "dir": "dist/client",
-      "entry": "dist/client/index.html"
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "entry": "index.html",
+        "height": "tall"
+      }
     }
   },
   "server": {
@@ -14,5 +17,20 @@
   "permissions": {
     "redis": true,
     "reddit": true
+  },
+  "triggers": {
+    "onAppInstall": "/internal/on-app-install"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Create Signal Lock Daily Post",
+        "description": "Create an interactive Signal Lock 5x5 laser puzzle post",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/post-create",
+        "postFilter": "none"
+      }
+    ]
   }
 }
